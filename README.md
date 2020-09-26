@@ -16,8 +16,8 @@ The emulator is developed using the following packages:
 To install the package in developer mode, clone the git repo locally and then use a pip development installation by running
 
 ```
-git clone https://github.com/LSSTDESC/MGemu.git
-cd MGemu
+git clone https://github.com/LSSTDESC/mgemu.git
+cd mgemu
 python setup.py install --user   # Add --user flag to install it locally
 ```
 from the top-level of the repo. From the same directory, run the test suite
