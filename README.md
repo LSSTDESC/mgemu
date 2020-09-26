@@ -57,7 +57,7 @@ pkratio, k = emu(Om=Om, ns=ns, s8=s8, fR0=fr0, n=n, z=z)
 ```
 ### Plotting the power spectra ratios should provide
 
-<img src="pkratio.png" width="512">
+<img src="mgemu/data/pkemu.png" width="512">
 
 
 ## Important notes: 
