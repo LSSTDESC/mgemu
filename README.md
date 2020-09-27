@@ -72,7 +72,7 @@ pkratio, k = emu(Om=Om, ns=ns, s8=s8, fR0=fr0, n=n, z=z)
 - 0.7≤ σ<sub>8</sub> ≤0.9
 - 10<sup>−8</sup> ≤ f<sub>R<sub>0</sub></sub> ≤10<sup>−4</sup>
 - 0 ≤ n ≤4
-- 0 ≤ z ≤ 50
+- 0 ≤ z ≤ 49
 
 Hence the estimation is only reliable in this range. Outside of this, the GP performs extrapolation, and may provide unreliable results. 
 

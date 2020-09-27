@@ -1,5 +1,7 @@
 """
+Redshift interpolation for Boost in power spectrum.
 """
+
 import numpy as np
 import pickle
 from sklearn.decomposition import PCA
@@ -24,9 +26,39 @@ LAST_SNAP = 99
 TOT_BINS = 300
 
 def emu(Omh2, ns, s8, fR0, n, z):
-    '''
-    Redshift interpolation for any redshift between 0 < z < 49
-    '''
+
+    """Returns the emulator prediction of Boost in power spectrum, for a redshift between 0 < z < 49
+    
+    Parameters
+    ----------
+            
+    Omh2: float
+        Physical matter density parameter (O_m h^2) in range [0.12, 0.15]. Here h = 0.67, a constant in the emulator design
+    
+    ns: float
+        Scalar spectral index (n_s) in range [0.85, 1.1]
+        
+    s8: float
+        The present root-mean-square matter fluctuation averaged over a sphere of radius 8Mpc/h (\sigma_8), in the range [0.7, 0.9]
+        
+    fR0: float
+        Hu-Sawicki model parameter (f_R_0) in range [1e-8, 1e-4]
+        
+    n: float
+        Hu-Sawicki model parameter (n) in range [0, 4]
+        
+    z: float
+        Redshift between [0, 49]
+        
+    
+            
+    Returns
+    _______
+            
+    Pk_interp: ndarray of shape (213, )
+        Boost in power spectrum predicted by interpolating between training redshift values.
+
+    """
     # redshift of all snapshots
     # altertively z_all = np.loadtxt('TrainedModels/timestepsCOLA.txt', skiprows=1)[:, 1]
     a = DEFAULT_SCALE_FACTOR

@@ -1,5 +1,7 @@
 """
+Gaussian Process prediction and emulator output for given training redshifts.
 """
+
 from .load import model_load
 from .scale import scale01, DEFAULT_MEAN, DEFAULT_STD
 import numpy as np
@@ -10,9 +12,30 @@ import gpflow
 __all__ = ("gp_predict", "gp_emu",)
 
 def gp_predict(gpmodel, para_array_rescaled):
-    '''
-    GP prediction of the latent space variables
-    '''
+
+    """Returns a Gaussian Process prediction of PCA weights
+    
+    Parameters
+    ----------
+            
+    gpmodel: GPflow object
+        Trained GPflow model corresponding to a particular redshift
+    
+    para_array_rescaled: ndarray of shape (5, )
+        Rescaled Cosmological parameters
+    
+            
+    Returns
+    _______
+            
+    W_predArray: float or ndarray of shape (nRankMax, )
+        Mean GP prediction of the PCA weights
+    
+    W_varArray: float or ndarray of shape (nRankMax, )
+        Variance in the GP prediction of the PCA weights
+
+    """
+    
     m1p = gpmodel.predict_f(para_array_rescaled)
     
     # [0] is the mean and [1] is the std of the prediction
@@ -22,9 +45,30 @@ def gp_predict(gpmodel, para_array_rescaled):
     return W_predArray, W_varArray
 
 def gp_emu(gpmodel, pcamodel, para_array):
-    '''
-    Combining GP prediction with PCA reconstrution to output p(k) ratio for the given snapshot
-    '''
+
+    """Returns the emulator prediction of Boost in power spectrum, for a given snapshot.
+    
+    Parameters
+    ----------
+            
+    gpmodel: GPflow object
+        Trained GPflow model corresponding to a particular redshift
+        
+    pcamodel: sklearn object
+        Trained PCA model corresponding to a particular redshift
+    
+    para_array: ndarray of shape (5, )
+        Cosmological parameters (not scaled)
+        para_array[3] is f_R_0, not in a logarithmic scale
+    
+            
+    Returns
+    _______
+            
+    x_decoded: ndarray of shape (213, )
+        Boost in power spectrum predicted for given GP and PCA models
+
+    """
     para_array = np.array(para_array)
     para_array[3] = np.log10(para_array[3])
     para_array_rescaled = scale01(para_array, DEFAULT_MEAN, DEFAULT_STD)
