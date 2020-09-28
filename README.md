@@ -82,12 +82,12 @@ Hence the estimation is only reliable in this range. Outside of this, the GP per
 
 4. Although the k range of the emulator is up to 0 ≤ k ≤ 3.5 h/Mpc, we do not advocate the use of the emulator for small scales beyond  k ~ 1.0 h/Mpc.
 
-## Feedback, License etc.:
+## License and Feedback:
 
 This software was developed within the LSST DESC using LSST DESC resources, and so meets the criteria given in, and is bound by, the LSST DESC Publication Policy for being a “DESC product”.
 
 The list of released versions of this package can be found [here](https://github.com/LSSTDESC/mgemu/releases), with the master branch including the most recent (non-released) development.
 
-This repository is maintained by Georgios Valogiannis [(@gvalgioa)](https://github.com/gvalogia) and Nesar Ramachandra [(@nesar)](https://github.com/gvalogia) If you have comments, suggestions or questions, please write us an [issue](https://github.com/LSSTDESC/mgemu/issues).
+This repository is maintained by Georgios Valogiannis [(@gvalgioa)](https://github.com/gvalogia) and Nesar Ramachandra [(@nesar)](https://github.com/gvalogia). If you have comments, suggestions or questions, please write us an [issue](https://github.com/LSSTDESC/mgemu/issues).
 
 This is open source software, available for re-use under the modified BSD license.
