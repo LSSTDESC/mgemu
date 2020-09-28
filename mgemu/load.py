@@ -15,31 +15,30 @@ __all__ = ("model_load",)
 
 _THIS_DRNAME = os.path.dirname(os.path.abspath(__file__))
 
-def model_load(snap_ID, nRankMax = DEFAULT_PCA_RANK):
 
-
+def model_load(snap_ID, nRankMax=DEFAULT_PCA_RANK):
     """Returns pretrained GP and PCA models (saved in ./models/) for given snapshot.
-    
+
     Parameters
     ----------
-            
+
     snap_ID: int between 0 to 99
         Corresponds to different time stamps
-    
+
     nRankMax: int
         Number of truncated PCA bases. Only valid nRankMax for now is 6.
-            
+
     Returns
     _______
-            
+
     GPm: GPflow predictor object
     PCAm: sklearn predictor object.
 
     """
-    
+
     GPmodelname = "GP_smooth_rank" + str(nRankMax) + "snap" + str(snap_ID)
     GPmodel = os.path.join(_THIS_DRNAME, "models", GPmodelname)
-    
+
     PCAmodelname = "PCA_smooth_rank" + str(nRankMax) + "snap" + str(snap_ID)
     PCAmodel = os.path.join(_THIS_DRNAME, "models", PCAmodelname)
 
@@ -50,4 +49,3 @@ def model_load(snap_ID, nRankMax = DEFAULT_PCA_RANK):
     GPm.compile()
     PCAm = pickle.load(open(PCAmodel, 'rb'))
     return GPm, PCAm
-
