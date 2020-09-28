@@ -81,3 +81,6 @@ Hence the estimation is only reliable in this range. Outside of this, the GP per
 3. Output from the `mgemu.emu` function will be the binned power spectra enhancement *P<sub>MG</sub>(k)/P<sub>LCDM</sub>(k)* and wavenumber *k* in 213 bins. 
 
 4. Although the k range of the emulator is up to 0 ≤ k ≤ 3.5 h/Mpc, we do not advocate the use of the emulator for small scales beyond  k ~ 1.0 h/Mpc.
+
+
+_This software was developed within the LSST DESC using LSST DESC resources, and so meets the criteria given in,and is bound by, the LSST DESC Publication Policy for being a “DESC product”._
