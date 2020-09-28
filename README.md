@@ -40,7 +40,7 @@ from mgemu import emu
 ```
 # LCDM parameters
 h = 0.67 # See notes regarding the value of h below
-Om=(h**2)*0.281
+Omh2=(h**2)*0.281
 ns=0.971
 s8=0.82
 
@@ -54,7 +54,7 @@ z= 0.3
 
 ### Run the Emulator
 ```
-pkratio, k = emu(Om=Om, ns=ns, s8=s8, fR0=fr0, n=n, z=z)
+pkratio, k = emu(Omh2=Omh2, ns=ns, s8=s8, fR0=fr0, n=n, z=z)
 ```
 
 
