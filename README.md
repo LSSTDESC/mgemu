@@ -13,21 +13,21 @@ The emulator is developed using the following packages:
 
 ## Installation
 
-To install the package in developer mode, clone the git repo locally and then use a pip development installation by running
+To install the package in developer mode, clone the git repo locally and then use a pip development installation by running:
 
 ```
 git clone https://github.com/LSSTDESC/mgemu.git
 cd mgemu
 python setup.py install --user   # Add --user flag to install it locally
 ```
-from the top-level of the repo. From the same directory, run the test suite
+from the top-level of the repo. From the same directory, run the test suite:
 ```
 pytest
 ```
 
 
 ## Running the Emulator 
-A script for running the emulator is also provided in `mgemu/notebooks/'
+A script for running the emulator is also provided in `mgemu/notebooks/'. 
 
 ### Import the Emulator 
 
@@ -58,7 +58,7 @@ pkratio, k = emu(Omh2=Omh2, ns=ns, s8=s8, fR0=fr0, n=n, z=z)
 ```
 
 
-### Plotting the power spectra ratios should provide
+### Plotting the power spectra ratios should provide:
 
 <img src="./mgemu/data/pkemu.png" width="512">
 
