@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4058880.svg)](https://doi.org/10.5281/zenodo.4058880)
+
 # Emulator for fast generation of *P<sub>MG</sub>(k)/P<sub>LCDM</sub>(k)* for *f(R)* Hu-Sawicki model
 
 
