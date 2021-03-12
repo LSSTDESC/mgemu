@@ -26,6 +26,9 @@ DEFAULT_KMASK = np.array([0,   1,   3,   4,   5,   6,   7,   8,   9,  10,  11,  
 LAST_SNAP = 99
 TOT_BINS = 300
 
+ALL_MODELS_INDX = np.arange(100)
+# ALL_PCA_MODELS 
+# ALL_GP_MODELS
 
 def emu(Omh2, ns, s8, fR0, n, z):
     """Returns the emulator prediction of Boost in power spectrum, for a redshift between 0 < z < 49
