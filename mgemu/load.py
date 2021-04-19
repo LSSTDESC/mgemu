@@ -11,7 +11,7 @@ import gpflow
 
 DEFAULT_PCA_RANK = 6
 
-__all__ = ("model_load",)
+__all__ = ("model_load", "model_load_all", )
 
 _THIS_DRNAME = os.path.dirname(os.path.abspath(__file__))
 
@@ -49,3 +49,37 @@ def model_load(snap_ID, nRankMax=DEFAULT_PCA_RANK):
     GPm.compile()
     PCAm = pickle.load(open(PCAmodel, 'rb'))
     return GPm, PCAm
+
+
+
+def model_load_all(nRankMax=DEFAULT_PCA_RANK):
+    """Returns pretrained all GP and PCA models (saved in ./models/) for given snapshot.
+
+    Parameters
+    ----------
+
+    snap_ID: int between 0 to 99
+        Corresponds to different time stamps
+
+    nRankMax: int
+        Number of truncated PCA bases. Only valid nRankMax for now is 6.
+
+    Returns
+    _______
+
+    GPm: GPflow predictor object
+    PCAm: sklearn predictor object.
+
+    """
+
+    GPmodel_list = []
+    PCAmodel_list = []
+
+    
+    for snap_ID in range(100):
+        GPm, PCAm = model_load(snap_ID, nRankMax)
+
+        GPmodel_list.append(GPm)
+        PCAmodel_list.append(PCAm)
+
+    return GPmodel_list, PCAmodel_list
