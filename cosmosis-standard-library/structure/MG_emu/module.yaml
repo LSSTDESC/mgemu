@@ -1,0 +1,42 @@
+name: MG_emu
+version: "1.0"
+purpose: "Emulate f(R) Hu-Sawicki model to compute nonlinear matter power"
+url: "https://github.com/LSSTDESC/mgemu"
+interface: MG_emu_interface.py
+attribution: [Cristhian Garcia-Quintero, Nesar Ramachandra, Georgios Valogiannis, Mustapha Ishak]
+rules: ""
+cite:
+    - "Matter Power Spectrum Emulator for f(R) Modified Gravity Cosmologies, Phys.Rev.D 103 (2021) 12, 123525."
+assumptions:
+    - "f(R) Hu-Sawicki model"
+
+explanation: |
+        "
+        Some theoretical explanation...
+        "
+
+params:
+    zmin: "Minimum value of redshift to calculate observable"
+    zmax: "Maximum value of redshift to calculate observable"
+    num_z: "Number of redshift values in a linearly-spaced array [zmin, zmax]"
+    do_distances: "Boolean, Whether to also calculate cosmological distances (default=T)"
+    transfer_function: "Whether to use 'boltzmann_class' or 'boltzmann_camb' as transfer function for CCL"
+    use_sigma8: "Boolean, Whether to use sigma8 for sampling instead of A_s (default=T)"
+
+inputs:
+    cosmological_parameters:
+        ombh2: "real scalar, baryon content (should be fixed)"
+        ommh2: "real scalar, matter content"
+        h0: "real scalar, Hubble/100km/s/Mpc"
+        n_s: "real scalar, scalar spectral index"
+        sigma_8: "real scalar, sigma8"
+
+outputs:
+    matter_power_nl:
+        z: "1D real array, redshifts of samples"
+        k_h: "1D real array, k wavenumbers of samples in Mpc/h"
+        p_k: "2D real array, matter power spectrum at samples in (Mpc/h)^-3"
+    distances:
+        z: "1D real array, redshifts of samples"
+        a: "1D real array, scale factor of samples"
+        d_m: "1D real array, co-moving distance in Mpc"
