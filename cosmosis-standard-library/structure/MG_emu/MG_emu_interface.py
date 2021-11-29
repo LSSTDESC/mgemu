@@ -29,11 +29,13 @@ def setup(options):
 
 # Execute module is called every time for each set of cosmological parameters
 def execute(block, config):
+
     # Get array of redshift to calculate P_MG(k)
     z = np.linspace(config['zmin'], config["zmax"], config['num_z'])
 
     # Call mgemu and ccl
-    pk_mg, k, chi = get_observable(Om  = block[cosmo, "omega_m"],
+    pk_mg, k, chi = get_observable(config,
+                   Om  = block[cosmo, "omega_m"],
                    h   = block[cosmo, "h0"],
                    s8  = block[cosmo, "sigma_8"],
                    ns  = block[cosmo, "n_s"],
@@ -44,56 +46,52 @@ def execute(block, config):
     )
 
     # Saving results in a grid of (k,z,pk). Here k and pk already in h/Mpc and (Mpc/h)^3 units
-    print(pk_mg, k, z)
-    print(np.shape(pk_mg), np.shape(k), np.shape(z))
     block.put_grid("matter_power_nl", "k_h", k, "z", z, "p_k", pk_mg.T)
 
     # Pass chi to block[distances, 'd_m'], to use later in /structure/project_2d.py file.
+    block[distances, 'z'] = z
+    block[distances, 'a'] = 1./(1+z)
     block[distances, 'd_m'] = chi
 
     return 0
 
 # Function to get pk_mg (not the ratio) and k arrays
-def get_observable(Om, h, s8, ns, fR0, n, z, Omb=0.02203):
+def get_observable(config, Om, h, s8, ns, fR0, n, z, Omb=0.02203):
 
     # Call MG emulator
     Omh2 = (h**2)*Om
     pkratio = []
-    k = []
     for i in range(0,len(z)):
-        print(Omh2, ns, s8, fR0, n, z[i])
         pkratio_tmp, k_tmp = emu(Omh2, ns, s8, fR0, n, z[i])
-        print(pkratio_tmp, k_tmp)
         pkratio.append(pkratio_tmp)
-        k.append(k_tmp)
-
+    k=k_tmp # each array of k is the same (regardless of value of z)
     # Convert list to numpy arrays
     pkratio = np.array(pkratio)
-    k = np.array(k)
 
     # Define CCL cosmology object
-    cosmo = ccl.Cosmology(Omega_c = Om - Omb / (h**2),
-                            Omega_b = Omb / (h**2),
+    cosmo = ccl.Cosmology(Omega_c = Om - Omb,
+                            Omega_b = Omb,
                             h = h,
                             sigma8 = s8,
                             n_s = ns,
-                            Neff = 3.046,
+                            Neff = 3.04,
                             transfer_function = config['transfer_function'],
                             matter_power_spectrum = 'emu')
     # Get P_MG(k)
     a = 1./(1+z)
     #Now we have to be careful, because mgemu k-units are in h/Mpc, while CCL units are in 1/Mpc. convert
     kccl = k*h
-    pk_nl = ccl.nonlin_matter_power(cosmo, kccl, a)
+    pk_nl = []
+    for i in range(0,len(a)):
+        pk_nl.append(ccl.nonlin_matter_power(cosmo, kccl, a[i]))
+    pk_nl = np.array(pk_nl)
     #CCL output pk is in Mpc^3, convert to (Mpc/h)^3
     pk_nl *= h*h*h
     pk_mg = pk_nl*pkratio
-    print(pk_mg)
-
     # Get radial comoving distance
     if config['do_distances']==True:
         chi = ccl.comoving_radial_distance(cosmo, 1/(1+z))
-    print(chi)
+
     return pk_mg, k, chi
 
 # Not needed in Python (purpose is to free memory)
