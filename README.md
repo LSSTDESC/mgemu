@@ -11,6 +11,7 @@ The emulator is developed using the following packages:
 1. tensorflow==1.14.0 `pip install tensorflow==1.14.0`
 2. gpflow=1.5.1 `pip install gpflow==1.5.1`
 3. scikit-learn=0.21.3 `pip install scikit-learn`
+4. h5py==2.9.0 `pip install h5py==2.9.0`
 
 
 ## Installation
